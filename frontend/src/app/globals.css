@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+/* ── 玄码 (XuanMa) — 奇门遁甲 设计系统 ── */
+
+@theme {
+  /* ── 星夜系 — 深邃背景 ── */
+  --color-cosmic-deep: #060b24;
+  --color-cosmic-mid: #0f1535;
+  --color-cosmic-light: #1a2150;
+
+  /* ── 古铜金系 — 主色 ── */
+  --color-bronze-primary: #b8943f;
+  --color-bronze-glow: #d4a853;
+  --color-bronze-dim: #7a6229;
+
+  /* ── 朱砂红系 — 凶/警示 ── */
+  --color-vermilion: #e8453c;
+  --color-vermilion-glow: #f06058;
+  --color-vermilion-dim: #8b2822;
+
+  /* ── 翡翠绿系 — 吉/正面 ── */
+  --color-jade: #5b8c5a;
+  --color-jade-glow: #72a870;
+
+  /* ── 表面/文字 ── */
+  --color-surface: #14192f;
+  --color-text-primary: #e8e0d0;
+  --color-text-secondary: #8a8578;
+
+  /* ── 字体 ── */
+  --font-display: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+  --font-body: 'Noto Sans SC', 'Inter', sans-serif;
+  --font-mono: 'Space Mono', 'Fira Code', monospace;
+}
+
+/* ── 全局基础 ── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cosmic-deep);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* ── 星空粒子背景 ── */
+.cosmic-stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(1px 1px at 10% 20%, rgba(212, 168, 83, 0.6), transparent),
+    radial-gradient(1px 1px at 25% 65%, rgba(212, 168, 83, 0.4), transparent),
+    radial-gradient(1.5px 1.5px at 40% 15%, rgba(232, 69, 60, 0.3), transparent),
+    radial-gradient(1px 1px at 55% 70%, rgba(212, 168, 83, 0.5), transparent),
+    radial-gradient(2px 2px at 70% 30%, rgba(212, 168, 83, 0.7), transparent),
+    radial-gradient(1px 1px at 85% 55%, rgba(91, 140, 90, 0.4), transparent),
+    radial-gradient(1.5px 1.5px at 15% 85%, rgba(212, 168, 83, 0.3), transparent),
+    radial-gradient(1px 1px at 60% 90%, rgba(212, 168, 83, 0.5), transparent),
+    radial-gradient(1px 1px at 90% 10%, rgba(232, 69, 60, 0.35), transparent),
+    radial-gradient(2px 2px at 35% 45%, rgba(212, 168, 83, 0.45), transparent);
+}
+
+/* ── CSS 动画 ── */
+
+/* 星芒闪烁 */
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.animate-star-twinkle {
+  animation: star-twinkle 3s ease-in-out infinite;
+}
+
+/* 金光涟漪 */
+@keyframes gold-ripple {
+  0% { box-shadow: 0 0 0 0 rgba(212, 168, 83, 0.4); }
+  70% { box-shadow: 0 0 0 12px rgba(212, 168, 83, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(212, 168, 83, 0); }
+}
+
+/* 盘面悬浮 */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* 文字淡入 */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+/* 逐字浮现 stagger */
+@keyframes char-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── 滚动条 ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cosmic-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-bronze-dim);
+  border-radius: 3px;
+}
