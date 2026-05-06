@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import AIInterpretPanel from '@/components/AIInterpret/AIInterpretPanel';
-import { getCurrentChart, interpretStreamFetch } from '@/lib/api';
+import { getCurrentChart, interpretDeepSeek } from '@/lib/api';
 import type { ChartData, QuestionType } from '@/lib/qimen-types';
 
 export default function InterpretPage() {
@@ -19,7 +19,7 @@ export default function InterpretPage() {
 
     try {
       const chart = await getCurrentChart();
-      await interpretStreamFetch(chart, questionType, {
+      await interpretDeepSeek(chart, questionType, {
         onToken: (token) => setAiText((prev) => prev + token),
         onDone: () => setAiLoading(false),
         onError: (err) => {

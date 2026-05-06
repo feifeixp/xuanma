@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { Calendar, RefreshCw } from 'lucide-react';
 import NinePalaceGrid from '@/components/QimenBoard/NinePalaceGrid';
 import AIInterpretPanel from '@/components/AIInterpret/AIInterpretPanel';
-import { calculateChart, getCurrentChart, interpretStreamFetch } from '@/lib/api';
+import { calculateChart, getCurrentChart, interpretDeepSeek } from '@/lib/api';
 import type { ChartData, QuestionType } from '@/lib/qimen-types';
 
 export default function ChartContent() {
@@ -60,7 +60,7 @@ export default function ChartContent() {
     setAiText('');
     setAiLoading(true);
 
-    await interpretStreamFetch(chartData, questionType, {
+    await interpretDeepSeek(chartData, questionType, {
       onToken: (token) => setAiText((prev) => prev + token),
       onDone: () => setAiLoading(false),
       onError: (err) => {
