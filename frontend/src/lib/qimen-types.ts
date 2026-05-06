@@ -50,6 +50,18 @@ export interface ChartData {
   duty_gate: string;
   duty_palace: number;
   four_pillars: FourPillars;
+  patterns?: PatternsData;
+}
+
+export interface PatternsData {
+  '伏吟': string[];
+  '反吟': string[];
+  '六仪击刑': string[];
+  '三奇入墓': string[];
+  '五不遇时': string[];
+  '天遁': string[];
+  '地遁': string[];
+  '人遁': string[];
 }
 
 export interface ChartResponse {

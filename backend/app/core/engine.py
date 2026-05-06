@@ -4,6 +4,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 from qimen_engine import QimenDunjia
+from qimen_engine.qimen.patterns import detect_patterns
 
 
 _engine: Optional[QimenDunjia] = None
@@ -67,6 +68,13 @@ def serialize_plate(plate) -> Dict[str, Any]:
             "has_three_wonders": p.has_three_wonders() if callable(p.has_three_wonders) else bool(p.has_three_wonders),
         }
 
+    patterns = detect_patterns(
+        palaces=plate.palaces,
+        earth_plate=plate.earth_plate,
+        day_stem=summary["four_pillars"]["day"][0] if "four_pillars" in summary and "day" in summary["four_pillars"] else "甲",
+        hour_stem=summary["four_pillars"]["hour"][0] if "four_pillars" in summary and "hour" in summary["four_pillars"] else "甲",
+    )
+
     return {
         "palaces": palaces,
         "dun_type": summary.get("dun_type"),
@@ -82,6 +90,7 @@ def serialize_plate(plate) -> Dict[str, Any]:
             "day": summary["four_pillars"].get("day"),
             "hour": summary["four_pillars"].get("hour"),
         },
+        "patterns": patterns,
     }
 
 

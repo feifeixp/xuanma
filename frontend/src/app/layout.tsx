@@ -32,6 +32,7 @@ export default function RootLayout({
             <div className="flex gap-6 text-sm text-text-secondary">
               <a href="/chart" className="hover:text-bronze-glow transition-colors">起盘</a>
               <a href="/interpret" className="hover:text-bronze-glow transition-colors">解盘</a>
+              <a href="/learn" className="hover:text-bronze-glow transition-colors">学习</a>
               <a href="/cases" className="hover:text-bronze-glow transition-colors">案例</a>
             </div>
           </div>

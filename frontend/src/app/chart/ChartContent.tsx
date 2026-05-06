@@ -221,6 +221,76 @@ export default function ChartContent() {
             </span>
           </motion.div>
         )}
+
+        {/* ── 格局检测 ── */}
+        {chartData && !loading && chartData.patterns && (
+          <motion.div
+            className="mt-4 p-4 bg-surface/40 border border-bronze-dim/10 rounded-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
+          >
+            <span className="text-xs text-bronze-dim/60 font-display tracking-widest mr-4 mb-2 block">
+              格局
+            </span>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+              {chartData.patterns['伏吟'].length > 0 && (
+                <div className="px-2 py-1 bg-vermilion/10 border border-vermilion/20 rounded-sm text-vermilion">
+                  <span className="font-display">伏吟</span> {chartData.patterns['伏吟'][0]}
+                </div>
+              )}
+              {chartData.patterns['反吟'].length > 0 && (
+                <div className="px-2 py-1 bg-vermilion/10 border border-vermilion/20 rounded-sm text-vermilion">
+                  <span className="font-display">反吟</span> {chartData.patterns['反吟'][0]}
+                </div>
+              )}
+              {chartData.patterns['六仪击刑'].map((item, i) => (
+                <div key={`x-${i}`} className="px-2 py-1 bg-vermilion/10 border border-vermilion/20 rounded-sm text-vermilion">
+                  <span className="font-display">击刑</span> {item}
+                </div>
+              ))}
+              {chartData.patterns['三奇入墓'].map((item, i) => (
+                <div key={`m-${i}`} className="px-2 py-1 bg-vermilion/10 border border-vermilion/20 rounded-sm text-vermilion">
+                  <span className="font-display">入墓</span> {item}
+                </div>
+              ))}
+              {chartData.patterns['五不遇时'].map((item, i) => (
+                <div key={`w-${i}`} className="px-2 py-1 bg-vermilion/10 border border-vermilion/20 rounded-sm text-vermilion">
+                  <span className="font-display">五不遇</span> {item}
+                </div>
+              ))}
+              {chartData.patterns['天遁'].map((item, i) => (
+                <div key={`t-${i}`} className="px-2 py-1 bg-jade/10 border border-jade/20 rounded-sm text-jade">
+                  {item}
+                </div>
+              ))}
+              {chartData.patterns['地遁'].map((item, i) => (
+                <div key={`d-${i}`} className="px-2 py-1 bg-jade/10 border border-jade/20 rounded-sm text-jade">
+                  {item}
+                </div>
+              ))}
+              {chartData.patterns['人遁'].map((item, i) => (
+                <div key={`r-${i}`} className="px-2 py-1 bg-jade/10 border border-jade/20 rounded-sm text-jade">
+                  {item}
+                </div>
+              ))}
+              {[
+                ...(chartData.patterns['伏吟'] || []),
+                ...(chartData.patterns['反吟'] || []),
+                ...(chartData.patterns['六仪击刑'] || []),
+                ...(chartData.patterns['三奇入墓'] || []),
+                ...(chartData.patterns['五不遇时'] || []),
+                ...(chartData.patterns['天遁'] || []),
+                ...(chartData.patterns['地遁'] || []),
+                ...(chartData.patterns['人遁'] || []),
+              ].length === 0 && (
+                <div className="col-span-full text-text-secondary/50 text-center py-1">
+                  未检测到特殊格局
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
       </div>
     </main>
   );

@@ -23,7 +23,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from .core import DunType, Yuan, SolarTerm, Trigram, Element, Direction
 from .constants import (
-    EARTH_PLATE_SEQUENCE,
+    EARTH_PLATE_SEQUENCE_YANG,
+    EARTH_PLATE_SEQUENCE_YIN,
     YANG_DUN_SEQUENCE,
     YIN_DUN_SEQUENCE,
     SOLAR_TERM_JU_MAPPING,
@@ -31,12 +32,15 @@ from .constants import (
     JIA_TO_YI,
     SIX_YI,
     THREE_WONDERS,
+    SPIRIT_SEQUENCE_YANG,
+    SPIRIT_SEQUENCE_YIN,
     get_sequence_for_dun,
     get_jia_for_day_index,
     get_yuan_for_day_index,
 )
 from .components import NineStars, EightGates, EightSpirits, NineStar, EightGate, EightSpirit
 from .palaces import Palace, NinePalaces, QimenPlate
+from .patterns import detect_patterns
 
 
 class QimenCalculator:
@@ -231,7 +235,8 @@ class QimenCalculator:
         Returns:
             Dict mapping palace number to stem character
         """
-        sequence = get_sequence_for_dun(dun_type)
+        palace_sequence = get_sequence_for_dun(dun_type)
+        stem_sequence = EARTH_PLATE_SEQUENCE_YIN if dun_type == DunType.YIN else EARTH_PLATE_SEQUENCE_YANG
         earth_plate = {}
 
         # Find starting position in the sequence
@@ -242,14 +247,14 @@ class QimenCalculator:
             start_palace = ju_number
 
         try:
-            start_idx = sequence.index(start_palace)
+            start_idx = palace_sequence.index(start_palace)
         except ValueError:
             start_idx = 0
 
         # Place stems following the sequence
-        for i, stem in enumerate(EARTH_PLATE_SEQUENCE):
-            palace_idx = (start_idx + i) % len(sequence)
-            palace_num = sequence[palace_idx]
+        for i, stem in enumerate(stem_sequence):
+            palace_idx = (start_idx + i) % len(palace_sequence)
+            palace_num = palace_sequence[palace_idx]
             earth_plate[palace_num] = stem
 
         # Handle center palace (5) - inherits from configured palace
@@ -473,17 +478,9 @@ class QimenCalculator:
         sequence = get_sequence_for_dun(dun_type)
         spirit_positions = {}
 
-        # Spirit sequence: 值符、螣蛇、太阴、六合、白虎、玄武、九地、九天
-        spirit_order = [
-            self.eight_spirits.by_chinese.get('值符'),
-            self.eight_spirits.by_chinese.get('螣蛇'),
-            self.eight_spirits.by_chinese.get('太阴'),
-            self.eight_spirits.by_chinese.get('六合'),
-            self.eight_spirits.by_chinese.get('白虎'),
-            self.eight_spirits.by_chinese.get('玄武'),
-            self.eight_spirits.by_chinese.get('九地'),
-            self.eight_spirits.by_chinese.get('九天'),
-        ]
+        # Spirit sequence: 陽遁順排 · 陰遁逆排 (值符前三六合位, 太阴在前二, 後一九天, 後二九地)
+        spirit_names = SPIRIT_SEQUENCE_YIN if dun_type == DunType.YIN else SPIRIT_SEQUENCE_YANG
+        spirit_order = [self.eight_spirits.by_chinese.get(name) for name in spirit_names]
 
         # Start from duty palace
         if duty_palace == 5:

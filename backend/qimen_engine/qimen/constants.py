@@ -25,9 +25,16 @@ SIX_YI = ['戊', '己', '庚', '辛', '壬', '癸']
 # Three Wonders - the three auspicious stems
 THREE_WONDERS = ['乙', '丙', '丁']
 
-# Complete Earth Plate sequence (六儀三奇排列)
-# This is the order in which stems are placed on the Earth Plate
-EARTH_PLATE_SEQUENCE = ['戊', '己', '庚', '辛', '壬', '癸', '丁', '丙', '乙']
+# Earth Plate sequence — Yang Dun (阳遁顺仪奇逆布)
+# 六仪顺排 + 三奇逆排
+EARTH_PLATE_SEQUENCE_YANG = ['戊', '己', '庚', '辛', '壬', '癸', '丁', '丙', '乙']
+
+# Earth Plate sequence — Yin Dun (阴遁逆仪奇顺行)
+# 六仪逆排 + 三奇顺排
+EARTH_PLATE_SEQUENCE_YIN = ['癸', '壬', '辛', '庚', '己', '戊', '乙', '丙', '丁']
+
+# Backward-compatible alias
+EARTH_PLATE_SEQUENCE = EARTH_PLATE_SEQUENCE_YANG
 
 # =============================================================================
 # Jia Concealment (甲遁)
@@ -205,8 +212,14 @@ GATE_BASE_PALACES = {
     '景门': 9,  # Jing Gate at Palace 9 (Li)
 }
 
-# Spirit sequence starting from Zhi Fu (值符)
-SPIRIT_SEQUENCE = ['值符', '螣蛇', '太阴', '六合', '白虎', '玄武', '九地', '九天']
+# Spirit sequence — Yang Dun (阳遁顺排八神)
+SPIRIT_SEQUENCE_YANG = ['值符', '螣蛇', '太阴', '六合', '白虎', '玄武', '九地', '九天']
+
+# Spirit sequence — Yin Dun (阴遁逆排八神)
+SPIRIT_SEQUENCE_YIN = ['值符', '九天', '九地', '玄武', '白虎', '六合', '太阴', '螣蛇']
+
+# Backward-compatible alias
+SPIRIT_SEQUENCE = SPIRIT_SEQUENCE_YANG
 
 # =============================================================================
 # Helper Functions
